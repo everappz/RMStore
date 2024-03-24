@@ -111,6 +111,7 @@ typedef void (^RMStoreSuccessBlock)(void);
 @property (nonatomic, copy) RMSKProductsRequestSuccessBlock successBlock;
 @property (nonatomic, copy) RMSKProductsRequestFailureBlock failureBlock;
 @property (nonatomic, weak) RMStore *store;
+@property (nonatomic, strong) SKProductsRequest *productsRequest;
 
 @end
 
@@ -253,7 +254,7 @@ typedef void (^RMStoreSuccessBlock)(void);
  
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:identifiers];
 	productsRequest.delegate = delegate;
-    
+    delegate.productsRequest = productsRequest;
     [productsRequest start];
 }
 
@@ -787,6 +788,7 @@ typedef void (^RMStoreSuccessBlock)(void);
 
 - (void)removeProductsRequestDelegate:(RMProductsRequestDelegate*)delegate
 {
+    delegate.productsRequest = nil;
     [_productsRequestDelegates removeObject:delegate];
 }
 

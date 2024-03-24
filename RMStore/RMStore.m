@@ -229,10 +229,18 @@ typedef void (^RMStoreSuccessBlock)(void);
         payment.applicationUsername = userIdentifier;
     }
     
+#ifdef DEBUG
+    if (@available(iOS 8.3, *)) {
+        payment.simulatesAskToBuyInSandbox = YES;
+    }
+#endif
+    
     RMAddPaymentParameters *parameters = [[RMAddPaymentParameters alloc] init];
     parameters.successBlock = successBlock;
     parameters.failureBlock = failureBlock;
     _addPaymentParameters[productIdentifier] = parameters;
+    
+    NSLog(@"Begin store request: %@", NSStringFromClass([payment class]));
     
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
@@ -271,6 +279,9 @@ typedef void (^RMStoreSuccessBlock)(void);
     _restoredTransactions = [NSMutableArray array];
     _restoreTransactionsSuccessBlock = successBlock;
     _restoreTransactionsFailureBlock = failureBlock;
+
+    NSLog(@"Begin store request: %@", @"restoreCompletedTransactions");
+    
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -308,6 +319,9 @@ typedef void (^RMStoreSuccessBlock)(void);
     _refreshReceiptSuccessBlock = successBlock;
     _refreshReceiptRequest = [[SKReceiptRefreshRequest alloc] initWithReceiptProperties:@{}];
     _refreshReceiptRequest.delegate = self;
+
+    NSLog(@"Begin store request: %@", NSStringFromClass([_refreshReceiptRequest class]));
+
     [_refreshReceiptRequest start];
 }
 
@@ -551,7 +565,7 @@ typedef void (^RMStoreSuccessBlock)(void);
 - (void)didPurchaseTransaction:(SKPaymentTransaction *)transaction queue:(SKPaymentQueue*)queue
 {
     RMStoreLog(@"transaction purchased with product %@", transaction.payment.productIdentifier);
-    
+
     if (self.receiptVerifier != nil)
     {
         [self.receiptVerifier verifyTransaction:transaction success:^{

@@ -138,7 +138,7 @@ typedef void (^RMStoreSuccessBlock)(void);
     
     NSMutableArray *_storedStorePayments;
     
-    NSInteger _pendingRestoredTransactionsCount;
+    NSMutableSet *_pendingRestoredTransactionIds;
     BOOL _restoredCompletedTransactionsFinished;
     
     SKReceiptRefreshRequest *_refreshReceiptRequest;
@@ -158,6 +158,7 @@ typedef void (^RMStoreSuccessBlock)(void);
         _productsRequestDelegates = [NSMutableSet set];
         _restoredTransactions = [NSMutableArray array];
         _storedStorePayments = [NSMutableArray array];
+        _pendingRestoredTransactionIds = [NSMutableSet set];
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
@@ -265,7 +266,7 @@ typedef void (^RMStoreSuccessBlock)(void);
                              failure:(void (^)(NSError *error))failureBlock
 {
     _restoredCompletedTransactionsFinished = NO;
-    _pendingRestoredTransactionsCount = 0;
+    [_pendingRestoredTransactionIds removeAllObjects];
     _restoredTransactions = [NSMutableArray array];
     _restoreTransactionsSuccessBlock = successBlock;
     _restoreTransactionsFailureBlock = failureBlock;
@@ -278,7 +279,7 @@ typedef void (^RMStoreSuccessBlock)(void);
 {
     NSAssert([[SKPaymentQueue defaultQueue] respondsToSelector:@selector(restoreCompletedTransactionsWithApplicationUsername:)], @"restoreCompletedTransactionsWithApplicationUsername: not supported in this iOS version. Use restoreTransactionsOnSuccess:failure: instead.");
     _restoredCompletedTransactionsFinished = NO;
-    _pendingRestoredTransactionsCount = 0;
+    [_pendingRestoredTransactionIds removeAllObjects];
     _restoreTransactionsSuccessBlock = successBlock;
     _restoreTransactionsFailureBlock = failureBlock;
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactionsWithApplicationUsername:userIdentifier];
@@ -593,9 +594,13 @@ typedef void (^RMStoreSuccessBlock)(void);
 
 - (void)didRestoreTransaction:(SKPaymentTransaction *)transaction queue:(SKPaymentQueue*)queue
 {
-    RMStoreLog(@"transaction restored with product %@", transaction.originalTransaction.payment.productIdentifier);
+    NSString *productIdentifier = transaction.originalTransaction.payment.productIdentifier;
+    RMStoreLog(@"transaction restored with product %@", productIdentifier);
     
-    _pendingRestoredTransactionsCount++;
+    if (productIdentifier)
+    {
+        [_pendingRestoredTransactionIds addObject:productIdentifier];
+    }
     if (self.receiptVerifier != nil)
     {
         [self.receiptVerifier verifyTransaction:transaction success:^{
@@ -695,9 +700,14 @@ typedef void (^RMStoreSuccessBlock)(void);
     if (transaction != nil)
     {
         [_restoredTransactions addObject:transaction];
-        _pendingRestoredTransactionsCount--;
+        
+        NSString *productIdentifier = transaction.payment.productIdentifier;
+        if (productIdentifier)
+        {
+            [_pendingRestoredTransactionIds removeObject:productIdentifier];
+        }
     }
-    if (_restoredCompletedTransactionsFinished && _pendingRestoredTransactionsCount == 0)
+    if (_restoredCompletedTransactionsFinished && _pendingRestoredTransactionIds.count == 0)
     { // Wait until all restored transations have been verified
         NSArray *restoredTransactions = [_restoredTransactions copy];
         if (_restoreTransactionsSuccessBlock != nil)

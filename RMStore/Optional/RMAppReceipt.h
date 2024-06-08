@@ -61,6 +61,10 @@ __attribute__((availability(ios,introduced=7.0)))
  */
 @property (nonatomic, strong, readonly) NSDate *expirationDate;
 
+/** The ASN1 data, used for initialization
+ */
+@property (nonatomic, strong, readonly) NSData *asn1Data;
+
 /** Returns an initialized app receipt from the given data.
  @param asn1Data ASN1 data
  @return An initialized app receipt from the given data.

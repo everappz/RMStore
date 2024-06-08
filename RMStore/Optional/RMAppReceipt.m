@@ -19,11 +19,29 @@
 //
 
 #import "RMAppReceipt.h"
-#import <UIKit/UIKit.h>
+
 #import <openssl/pkcs7.h>
 #import <openssl/objects.h>
 #import <openssl/sha.h>
 #import <openssl/x509.h>
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
+
+#if TARGET_OS_MACCATALYST || TARGET_OS_MAC
+#import <IOKit/IOKitLib.h>
+#import <Security/SecKeychainItem.h>
+
+// Returns a CFData object, containing the computer's GUID.
+static CFDataRef CopyMACAddressData();
+#endif
+
+#if DEBUG
+#define RMAppReceiptLog(...) NSLog(@"RMAppReceipt: %@", [NSString stringWithFormat:__VA_ARGS__]);
+#else
+#define RMAppReceiptLog(...)
+#endif
 
 // From https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ReceiptFields.html#//apple_ref/doc/uid/TP40010573-CH106-SW1
 NSInteger const RMAppReceiptASN1TypeBundleIdentifier = 2;
@@ -149,6 +167,7 @@ static NSData *_appleRootCertificateData = nil;
             }
         }];
         _inAppPurchases = purchases;
+        _asn1Data = asn1Data;
     }
     return self;
 }
@@ -164,31 +183,40 @@ static NSData *_appleRootCertificateData = nil;
 
 -(BOOL)containsActiveAutoRenewableSubscriptionOfProductIdentifier:(NSString *)productIdentifier forDate:(NSDate *)date
 {
-    RMAppReceiptIAP *lastTransaction = nil;
-    
     for (RMAppReceiptIAP *iap in self.inAppPurchases)
     {
-        if (![iap.productIdentifier isEqualToString:productIdentifier]) continue;
-        
-        if (!lastTransaction || [iap.subscriptionExpirationDate compare:lastTransaction.subscriptionExpirationDate] == NSOrderedDescending)
+        if ([iap.productIdentifier isEqualToString:productIdentifier] &&
+            [iap isActiveAutoRenewableSubscriptionForDate:date])
         {
-            lastTransaction = iap;
+            return YES;
         }
     }
     
-    return [lastTransaction isActiveAutoRenewableSubscriptionForDate:date];
+    return NO;
 }
 
 - (BOOL)verifyReceiptHash
 {
-    // TODO: Getting the uuid in Mac is different. See: https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW5
+    // Order taken from:
+    //https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW5
+    NSMutableData *data = [NSMutableData data];
+    
+#if TARGET_OS_MACCATALYST || TARGET_OS_MAC
+    
+    // TODO: Getting the uuid in Mac is different. See:
+    //https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW5
+    
+    [data appendData:(__bridge NSData * _Nonnull)(CopyMACAddressData())];
+    
+#elif TARGET_OS_IPHONE
+    
     NSUUID *uuid = [UIDevice currentDevice].identifierForVendor;
     unsigned char uuidBytes[16];
     [uuid getUUIDBytes:uuidBytes];
-    
-    // Order taken from: https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW5
-    NSMutableData *data = [NSMutableData data];
     [data appendBytes:uuidBytes length:sizeof(uuidBytes)];
+    
+#endif
+
     [data appendData:self.opaqueValue];
     [data appendData:self.bundleIdentifierData];
     
@@ -332,6 +360,119 @@ static NSData *_appleRootCertificateData = nil;
     NSDate *date = [formatter dateFromString:string];
     return date;
 }
+
+#if TARGET_OS_MACCATALYST || TARGET_OS_MAC
+
+// Returns a CFData object, containing the computer's GUID.
+static CFDataRef CopyMACAddressData()
+{
+    kern_return_t             kernResult;
+    mach_port_t               master_port;
+    CFMutableDictionaryRef    matchingDict;
+    io_iterator_t             iterator;
+    io_object_t               service;
+    CFDataRef                 macAddress = nil;
+
+    kernResult = IOMasterPort(MACH_PORT_NULL, &master_port);
+    if (kernResult != KERN_SUCCESS) {
+        RMAppReceiptLog(@"IOMasterPort returned %d", kernResult);
+        return nil;
+    }
+
+    matchingDict = IOBSDNameMatching(master_port, 0, "en0");
+    if (!matchingDict) {
+        RMAppReceiptLog(@"IOBSDNameMatching returned empty dictionary");
+        return nil;
+    }
+
+    kernResult = IOServiceGetMatchingServices(master_port, matchingDict, &iterator);
+    if (kernResult != KERN_SUCCESS) {
+        RMAppReceiptLog(@"IOServiceGetMatchingServices returned %d", kernResult);
+        return nil;
+    }
+
+    while((service = IOIteratorNext(iterator)) != 0) {
+        io_object_t parentService;
+
+        kernResult = IORegistryEntryGetParentEntry(service, kIOServicePlane,
+                                                   &parentService);
+        if (kernResult == KERN_SUCCESS) {
+            if (macAddress) CFRelease(macAddress);
+
+            macAddress = (CFDataRef) IORegistryEntryCreateCFProperty(parentService,
+                                                                     CFSTR("IOMACAddress"), kCFAllocatorDefault, 0);
+            IOObjectRelease(parentService);
+        } else {
+            RMAppReceiptLog(@"IORegistryEntryGetParentEntry returned %d", kernResult);
+        }
+
+        IOObjectRelease(service);
+    }
+    IOObjectRelease(iterator);
+
+    return macAddress;
+}
+
+#endif
+
+#if TARGET_OS_MAC && !TARGET_OS_MACCATALYST
+
+static inline SecCertificateRef AppleRootCAFromKeychain( void )
+{
+    SecKeychainRef roots = NULL;
+    SecKeychainSearchRef search = NULL;
+    SecCertificateRef cert = NULL;
+    BOOL cfReleaseKeychain = YES;
+
+    // there's a GC bug with this guy it seems
+    OSStatus err = SecKeychainOpen( "/System/Library/Keychains/SystemRootCertificates.keychain", &roots );
+
+    if ( err != noErr )
+    {
+        CFStringRef errStr = SecCopyErrorMessageString( err, NULL );
+        RMAppReceiptLog( @"Error: %d (%@)", err, errStr );
+        CFRelease( errStr );
+        return NULL;
+    }
+
+    SecKeychainAttribute labelAttr = { .tag = kSecLabelItemAttr, .length = 13, .data = (void *)"Apple Root CA" };
+    SecKeychainAttributeList attrs = { .count = 1, .attr = &labelAttr };
+
+    err = SecKeychainSearchCreateFromAttributes( roots, kSecCertificateItemClass, &attrs, &search );
+    if ( err != noErr )
+    {
+        CFStringRef errStr = SecCopyErrorMessageString( err, NULL );
+        RMAppReceiptLog( @"Error: %d (%@)", err, errStr );
+        CFRelease( errStr );
+        if ( cfReleaseKeychain )
+            CFRelease( roots );
+        return NULL;
+    }
+
+    SecKeychainItemRef item = NULL;
+    err = SecKeychainSearchCopyNext( search, &item );
+    if ( err != noErr )
+    {
+        CFStringRef errStr = SecCopyErrorMessageString( err, NULL );
+        RMAppReceiptLog( @"Error: %d (%@)", err, errStr );
+        CFRelease( errStr );
+        if ( cfReleaseKeychain )
+            CFRelease( roots );
+
+        return NULL;
+    }
+
+    cert = (SecCertificateRef)item;
+    CFRelease( search );
+
+    if ( cfReleaseKeychain )
+        CFRelease( roots );
+
+    return ( cert );
+}
+
+#endif
+
 
 @end
 

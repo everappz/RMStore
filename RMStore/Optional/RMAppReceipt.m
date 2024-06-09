@@ -25,16 +25,15 @@
 #import <openssl/sha.h>
 #import <openssl/x509.h>
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#endif
-
-#if TARGET_OS_MACCATALYST || TARGET_OS_MAC
+#if TARGET_OS_MACCATALYST
 #import <IOKit/IOKitLib.h>
 #import <Security/SecKeychainItem.h>
 
 // Returns a CFData object, containing the computer's GUID.
 static CFDataRef CopyMACAddressData();
+
+#elif TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
 #endif
 
 #if DEBUG
@@ -201,7 +200,7 @@ static NSData *_appleRootCertificateData = nil;
     //https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW5
     NSMutableData *data = [NSMutableData data];
     
-#if TARGET_OS_MACCATALYST || TARGET_OS_MAC
+#if TARGET_OS_MACCATALYST
     
     // TODO: Getting the uuid in Mac is different. See:
     //https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW5
@@ -361,7 +360,7 @@ static NSData *_appleRootCertificateData = nil;
     return date;
 }
 
-#if TARGET_OS_MACCATALYST || TARGET_OS_MAC
+#if TARGET_OS_MACCATALYST
 
 // Returns a CFData object, containing the computer's GUID.
 static CFDataRef CopyMACAddressData()
@@ -411,64 +410,6 @@ static CFDataRef CopyMACAddressData()
     IOObjectRelease(iterator);
 
     return macAddress;
-}
-
-#endif
-
-#if TARGET_OS_MAC && !TARGET_OS_MACCATALYST
-
-static inline SecCertificateRef AppleRootCAFromKeychain( void )
-{
-    SecKeychainRef roots = NULL;
-    SecKeychainSearchRef search = NULL;
-    SecCertificateRef cert = NULL;
-    BOOL cfReleaseKeychain = YES;
-
-    // there's a GC bug with this guy it seems
-    OSStatus err = SecKeychainOpen( "/System/Library/Keychains/SystemRootCertificates.keychain", &roots );
-
-    if ( err != noErr )
-    {
-        CFStringRef errStr = SecCopyErrorMessageString( err, NULL );
-        RMAppReceiptLog( @"Error: %d (%@)", err, errStr );
-        CFRelease( errStr );
-        return NULL;
-    }
-
-    SecKeychainAttribute labelAttr = { .tag = kSecLabelItemAttr, .length = 13, .data = (void *)"Apple Root CA" };
-    SecKeychainAttributeList attrs = { .count = 1, .attr = &labelAttr };
-
-    err = SecKeychainSearchCreateFromAttributes( roots, kSecCertificateItemClass, &attrs, &search );
-    if ( err != noErr )
-    {
-        CFStringRef errStr = SecCopyErrorMessageString( err, NULL );
-        RMAppReceiptLog( @"Error: %d (%@)", err, errStr );
-        CFRelease( errStr );
-        if ( cfReleaseKeychain )
-            CFRelease( roots );
-        return NULL;
-    }
-
-    SecKeychainItemRef item = NULL;
-    err = SecKeychainSearchCopyNext( search, &item );
-    if ( err != noErr )
-    {
-        CFStringRef errStr = SecCopyErrorMessageString( err, NULL );
-        RMAppReceiptLog( @"Error: %d (%@)", err, errStr );
-        CFRelease( errStr );
-        if ( cfReleaseKeychain )
-            CFRelease( roots );
-
-        return NULL;
-    }
-
-    cert = (SecCertificateRef)item;
-    CFRelease( search );
-
-    if ( cfReleaseKeychain )
-        CFRelease( roots );
-
-    return ( cert );
 }
 
 #endif

@@ -24,13 +24,13 @@
 @implementation RMStoreAppReceiptVerifier
 
 - (void)verifyTransaction:(SKPaymentTransaction*)transaction
-                           success:(void (^)(void))successBlock
-                           failure:(void (^)(NSError *error))failureBlock
+                  success:(void (^)(void))successBlock
+                  failure:(void (^)(NSError *error))failureBlock
 {
     RMAppReceipt *receipt = [RMAppReceipt bundleReceipt];
     const BOOL verified = [self verifyTransaction:transaction inReceipt:receipt success:successBlock failure:nil]; // failureBlock is nil intentionally. See below.
     if (verified) return;
-
+    
     // Apple recommends to refresh the receipt if validation fails on iOS
     [[RMStore defaultStore] refreshReceiptOnSuccess:^{
         RMAppReceipt *receipt = [RMAppReceipt bundleReceipt];
@@ -61,7 +61,7 @@
 {
     if (!_bundleVersion)
     {
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE && !TARGET_OS_MACCATALYST
         return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 #else
         return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
@@ -70,7 +70,7 @@
     return _bundleVersion;
 }
 
-#pragma mark - Private
+#pragma mark - Verify App Receipt
 
 - (BOOL)verifyAppReceipt:(RMAppReceipt*)receipt
 {
@@ -87,8 +87,8 @@
 
 - (BOOL)verifyTransaction:(SKPaymentTransaction*)transaction
                 inReceipt:(RMAppReceipt*)receipt
-                           success:(void (^)(void))successBlock
-                           failure:(void (^)(NSError *error))failureBlock
+                  success:(void (^)(void))successBlock
+                  failure:(void (^)(NSError *error))failureBlock
 {
     const BOOL receiptVerified = [self verifyAppReceipt:receipt];
     if (!receiptVerified)

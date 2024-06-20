@@ -175,6 +175,15 @@ static NSData *_appleRootCertificateData = nil;
 {
     for (RMAppReceiptIAP *purchase in _inAppPurchases)
     {
+        if ([purchase.productIdentifier isEqualToString:productIdentifier]) return YES;
+    }
+    return NO;
+}
+
+- (BOOL)containsNotCancelledInAppPurchaseOfProductIdentifier:(NSString*)productIdentifier
+{
+    for (RMAppReceiptIAP *purchase in _inAppPurchases)
+    {
         if (purchase.cancellationDate == nil && [purchase.productIdentifier isEqualToString:productIdentifier]) return YES;
     }
     return NO;

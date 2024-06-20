@@ -72,6 +72,12 @@ __attribute__((availability(ios,introduced=7.0)))
 - (instancetype)initWithASN1Data:(NSData*)asn1Data NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
+/** Returns whether there is not cancelled an in-app purchase in the receipt for the given product.
+ @param productIdentifier The identifier of the product.
+ @return YES if there is an active not cancelled in-app purchase for the given product, NO otherwise.
+ */
+- (BOOL)containsNotCancelledInAppPurchaseOfProductIdentifier:(NSString*)productIdentifier;
+
 /** Returns whether there is an in-app purchase in the receipt for the given product.
  @param productIdentifier The identifier of the product.
  @return YES if there is an in-app purchase for the given product, NO otherwise.

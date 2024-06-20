@@ -240,7 +240,7 @@ typedef void (^RMStoreSuccessBlock)(void);
     parameters.failureBlock = failureBlock;
     _addPaymentParameters[productIdentifier] = parameters;
     
-    NSLog(@"Begin store request: %@", NSStringFromClass([payment class]));
+    RMStoreLog(@"Begin store request: %@",payment);
     
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }

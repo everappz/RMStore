@@ -229,11 +229,11 @@ typedef void (^RMStoreSuccessBlock)(void);
         payment.applicationUsername = userIdentifier;
     }
     
-#ifdef DEBUG
-    if (@available(iOS 8.3, *)) {
-        payment.simulatesAskToBuyInSandbox = YES;
-    }
-#endif
+//#ifdef DEBUG
+//    if (@available(iOS 8.3, *)) {
+//        payment.simulatesAskToBuyInSandbox = YES;
+//    }
+//#endif
     
     RMAddPaymentParameters *parameters = [[RMAddPaymentParameters alloc] init];
     parameters.successBlock = successBlock;

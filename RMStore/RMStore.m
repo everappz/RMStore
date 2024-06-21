@@ -747,6 +747,12 @@ typedef void (^RMStoreSuccessBlock)(void);
 - (void)requestDidFinish:(SKRequest *)request
 {
     RMStoreLog(@"refresh receipt finished");
+    //cancel refresh receipt request to fix:
+    //[BackgroundTask] Background Task 7 ("SKReceiptRefreshRequest"), was created over 30 seconds ago.
+    //In applications running in the background, this creates a risk of termination.
+    //Remember to call UIApplication.endBackgroundTask(_:) for your task in a timely manner to avoid this.
+    _refreshReceiptRequest.delegate = nil;
+    [_refreshReceiptRequest cancel];
     _refreshReceiptRequest = nil;
     if (_refreshReceiptSuccessBlock)
     {
@@ -759,6 +765,8 @@ typedef void (^RMStoreSuccessBlock)(void);
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
     RMStoreLog(@"refresh receipt failed with error %@", error.debugDescription);
+    _refreshReceiptRequest.delegate = nil;
+    [_refreshReceiptRequest cancel];
     _refreshReceiptRequest = nil;
     if (_refreshReceiptFailureBlock)
     {

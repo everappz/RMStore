@@ -24,6 +24,9 @@
 #import <openssl/objects.h>
 #import <openssl/sha.h>
 #import <openssl/x509.h>
+#import <openssl/evp.h>
+#import <openssl/pem.h>
+
 
 #if TARGET_OS_MACCATALYST
 #import <IOKit/IOKitLib.h>
@@ -296,25 +299,40 @@ static NSData *_appleRootCertificateData = nil;
 { // Based on: https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateLocally.html#//apple_ref/doc/uid/TP40010573-CH1-SW17
     static int verified = 1;
     int result = 0;
-    OpenSSL_add_all_digests(); // Required for PKCS7_verify to work
+    
+    // Initialize OpenSSL algorithms (only once per application)
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CONFIG | OPENSSL_INIT_ADD_ALL_DIGESTS, NULL);
+    });
+    
+    // Create a new X509 store
     X509_STORE *store = X509_STORE_new();
     if (store)
     {
+        // Convert NSData to X509 certificate
         const uint8_t *certificateBytes = (uint8_t *)(certificateData.bytes);
         X509 *certificate = d2i_X509(NULL, &certificateBytes, (long)certificateData.length);
         if (certificate)
         {
+            // Add certificate to store
             X509_STORE_add_cert(store, certificate);
             
+            // Create a BIO for the payload
             BIO *payload = BIO_new(BIO_s_mem());
-            result = PKCS7_verify(container, NULL, store, NULL, payload, 0);
-            BIO_free(payload);
+            if (payload)
+            {
+                // Verify the PKCS7 container
+                result = PKCS7_verify(container, NULL, store, NULL, payload, 0);
+                BIO_free(payload);
+            }
             
+            // Free the certificate
             X509_free(certificate);
         }
+        // Free the X509 store
+        X509_STORE_free(store);
     }
-    X509_STORE_free(store);
-    EVP_cleanup(); // Balances OpenSSL_add_all_digests (), per http://www.openssl.org/docs/crypto/OpenSSL_add_all_algorithms.html
     
     return result == verified;
 }

@@ -314,7 +314,7 @@ static NSData *_appleRootCertificateData = nil;
         }
     }
     X509_STORE_free(store);
-    EVP_cleanup(); // Balances OpenSSL_add_all_digests (), perhttp://www.openssl.org/docs/crypto/OpenSSL_add_all_algorithms.html
+    EVP_cleanup(); // Balances OpenSSL_add_all_digests (), per http://www.openssl.org/docs/crypto/OpenSSL_add_all_algorithms.html
     
     return result == verified;
 }

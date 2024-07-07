@@ -277,12 +277,16 @@ static NSData *_appleRootCertificateData = nil;
     NSData *data;
     NSData *certificateData = _appleRootCertificateData;
   
-    if( certificateData.length == 0 ) {
+    if (certificateData.length == 0) 
+    {
         NSURL *certificateURL = _appleRootCertificateURL ? : [[NSBundle mainBundle] URLForResource:@"AppleIncRootCertificate" withExtension:@"cer"];
-        certificateData = [NSData dataWithContentsOfURL:certificateURL];
+        if (certificateURL != nil) 
+        {
+            certificateData = [NSData dataWithContentsOfURL:certificateURL];
+        }
     }
   
-    if (!certificateData || [self verifyPCKS7:p7 withCertificateData:certificateData])
+    if (!certificateData || [self verifyPCKS7:p7 withCertificateData:certificateData]) 
     {
         struct pkcs7_st *contents = p7->d.sign->contents;
         if (PKCS7_type_is_data(contents))

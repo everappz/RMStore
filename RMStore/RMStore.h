@@ -185,6 +185,12 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
 
 + (NSString*)localizedPriceOfProduct:(SKProduct*)product;
 
++ (BOOL)isFreeTrialAvailableForProduct:(SKProduct *)product;
+
++ (NSInteger)freeTrialDurationInDaysForProduct:(SKProduct *)product;
+
++ (BOOL)isFamilySharingEnabledForProduct:(SKProduct *)product;
+
 #pragma mark Notifications
 ///---------------------------------------------
 /// @name Managing Observers

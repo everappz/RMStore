@@ -341,13 +341,61 @@ typedef void (^RMStoreSuccessBlock)(void);
     return product;
 }
 
-+ (NSString*)localizedPriceOfProduct:(SKProduct*)product
-{
++ (NSString *)localizedPriceOfProduct:(SKProduct*)product {
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	numberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
 	numberFormatter.locale = product.priceLocale;
 	NSString *formattedString = [numberFormatter stringFromNumber:product.price];
 	return formattedString;
+}
+
++ (BOOL)isFreeTrialAvailableForProduct:(SKProduct *)product {
+    if (@available(iOS 11.2, *)) {
+        SKProductDiscount *discount = product.introductoryPrice;
+        if (!discount) {
+            return NO;
+        }
+
+        return discount.paymentMode == SKProductDiscountPaymentModeFreeTrial;
+    }
+
+    return NO;
+}
+
++ (NSInteger)freeTrialDurationInDaysForProduct:(SKProduct *)product {
+    if (@available(iOS 11.2, *)) {
+        SKProductDiscount *discount = product.introductoryPrice;
+        if (!discount || discount.paymentMode != SKProductDiscountPaymentModeFreeTrial) {
+            return 0;
+        }
+
+        NSInteger units = discount.numberOfPeriods;
+        switch (discount.subscriptionPeriod.unit) {
+            case SKProductPeriodUnitDay:
+                return units;
+
+            case SKProductPeriodUnitWeek:
+                return units * 7;
+
+            case SKProductPeriodUnitMonth:
+                return units * 30; // App Store convention
+
+            case SKProductPeriodUnitYear:
+                return units * 365;
+
+            default:
+                return 0;
+        }
+    }
+
+    return 0;
+}
+
++ (BOOL)isFamilySharingEnabledForProduct:(SKProduct *)product {
+    if (@available(iOS 14.0, *)) {
+        return product.isFamilyShareable;
+    }
+    return NO;
 }
 
 #pragma mark Observers

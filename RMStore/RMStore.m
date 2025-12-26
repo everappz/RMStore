@@ -369,25 +369,24 @@ typedef void (^RMStoreSuccessBlock)(void);
             return 0;
         }
 
-        NSInteger units = discount.numberOfPeriods;
+        NSUInteger units = discount.subscriptionPeriod.numberOfUnits;
         switch (discount.subscriptionPeriod.unit) {
             case SKProductPeriodUnitDay:
-                return units;
+                return (NSInteger)units;
 
             case SKProductPeriodUnitWeek:
-                return units * 7;
+                return (NSInteger)(units * 7);
 
             case SKProductPeriodUnitMonth:
-                return units * 30; // App Store convention
+                return (NSInteger)(units * 30); // App Store convention (approx.)
 
             case SKProductPeriodUnitYear:
-                return units * 365;
+                return (NSInteger)(units * 365);
 
             default:
                 return 0;
         }
     }
-
     return 0;
 }
 

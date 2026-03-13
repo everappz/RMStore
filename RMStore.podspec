@@ -33,6 +33,10 @@ Pod::Spec.new do |s|
     arv.source_files = 'RMStore/Optional/RMStoreAppReceiptVerifier.{h,m}', 'RMStore/Optional/RMAppReceipt.{h,m}'
     arv.resource = 'RMStore/Optional/AppleIncRootCertificate.cer'
     arv.dependency 'LSOpenSSL'
+    arv.pod_target_xcconfig = {
+      'OTHER_LDFLAGS' => '$(inherited) -l"crypto" -l"ssl"',
+      'LIBRARY_SEARCH_PATHS' => '$(inherited) "${PODS_XCFRAMEWORKS_BUILD_DIR}/LSOpenSSL"'
+    }
   end
 
   s.subspec 'TransactionReceiptVerifier' do |trv|

@@ -232,7 +232,10 @@ static NSData *_appleRootCertificateData = nil;
     [data appendData:self.bundleIdentifierData];
     
     NSMutableData *expectedHash = [NSMutableData dataWithLength:SHA_DIGEST_LENGTH];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     SHA1((const uint8_t*)data.bytes, data.length, (uint8_t*)expectedHash.mutableBytes); // Explicit casting to avoid errors when compiling as Objective-C++
+#pragma clang diagnostic pop
     
     return [expectedHash isEqualToData:self.receiptHash];
 }
@@ -286,14 +289,17 @@ static NSData *_appleRootCertificateData = nil;
         }
     }
   
-    if (!certificateData || [self verifyPCKS7:p7 withCertificateData:certificateData]) 
+    if (!certificateData || [self verifyPCKS7:p7 withCertificateData:certificateData])
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         struct pkcs7_st *contents = p7->d.sign->contents;
         if (PKCS7_type_is_data(contents))
         {
             ASN1_OCTET_STRING *octets = contents->d.data;
             data = [NSData dataWithBytes:octets->data length:octets->length];
         }
+#pragma clang diagnostic pop
     }
     PKCS7_free(p7);
     return data;

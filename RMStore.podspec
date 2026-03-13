@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author = 'Hermes Pique'
   s.social_media_url = 'https://twitter.com/hpique'
   s.source = { :git => 'https://github.com/robotmedia/RMStore.git', :tag => "v#{s.version}" }
-  s.platform = :ios, '7.0'
+  s.platform = :ios, '15.0'
   s.frameworks = 'StoreKit'
   s.requires_arc = true
   s.default_subspec = 'Core'
@@ -29,13 +29,10 @@ Pod::Spec.new do |s|
 
   s.subspec 'AppReceiptVerifier' do |arv|
     arv.dependency 'RMStore/Core'
-    arv.platform = :ios, '7.0'
+    arv.platform = :ios, '15.0'
     arv.source_files = 'RMStore/Optional/RMStoreAppReceiptVerifier.{h,m}', 'RMStore/Optional/RMAppReceipt.{h,m}'
-    arv.dependency 'OpenSSL-Universal', '~> 1.0'
-	# arv.dependency 'OpenSSL-iOS'
-	# arv.vendored_libraries = '${PODS_ROOT}/OpenSSL-iOS/libcrypto.a', '${PODS_ROOT}/OpenSSL-iOS/libssl.a'
-	# arv.libraries = 'ssl', 'crypto'
-	# arv.xcconfig = { 'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/OpenSSL-iOS/openssl/**", 'LIBRARY_SEARCH_PATHS' => "${PODS_ROOT}/OpenSSL-iOS/" }
+    arv.resource = 'RMStore/Optional/AppleIncRootCertificate.cer'
+    arv.dependency 'LSOpenSSL'
   end
 
   s.subspec 'TransactionReceiptVerifier' do |trv|

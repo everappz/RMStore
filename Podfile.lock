@@ -1,0 +1,40 @@
+PODS:
+  - LSOpenSSL (3.0.18)
+  - RMStore/AppReceiptVerifier (0.7.1):
+    - LSOpenSSL
+    - RMStore/Core
+  - RMStore/Core (0.7.1)
+  - RMStore/KeychainPersistence (0.7.1):
+    - RMStore/Core
+  - RMStore/NSUserDefaultsPersistence (0.7.1):
+    - RMStore/Core
+  - RMStore/TransactionReceiptVerifier (0.7.1):
+    - RMStore/Core
+
+DEPENDENCIES:
+  - "LSOpenSSL (from `git@github.com:everappz/Build-OpenSSL-cURL.git`, commit `ba0b54b70af02f20ca9d20a6565f576f8f8e3b54`)"
+  - RMStore/AppReceiptVerifier (from `.`)
+  - RMStore/Core (from `.`)
+  - RMStore/KeychainPersistence (from `.`)
+  - RMStore/NSUserDefaultsPersistence (from `.`)
+  - RMStore/TransactionReceiptVerifier (from `.`)
+
+EXTERNAL SOURCES:
+  LSOpenSSL:
+    :commit: ba0b54b70af02f20ca9d20a6565f576f8f8e3b54
+    :git: "git@github.com:everappz/Build-OpenSSL-cURL.git"
+  RMStore:
+    :path: "."
+
+CHECKOUT OPTIONS:
+  LSOpenSSL:
+    :commit: ba0b54b70af02f20ca9d20a6565f576f8f8e3b54
+    :git: "git@github.com:everappz/Build-OpenSSL-cURL.git"
+
+SPEC CHECKSUMS:
+  LSOpenSSL: 0468b6dc6af9da91b0addfe2a53f70195f86e51f
+  RMStore: 4d20a2c7c3437086d7e0632dad21553e6e5069f4
+
+PODFILE CHECKSUM: d4a2080e410639bf11ae90ab723ed3a74e2ef82d
+
+COCOAPODS: 1.16.2

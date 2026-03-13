@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C2A93E368303D1D6A58E14D /* libPods-RMStoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 752A5CBBE49FDC2FAD1FF951 /* libPods-RMStoreTests.a */; };
 		8700D1C117DCA548005C8F5D /* NSNotification+RMStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8700D1C017DCA548005C8F5D /* NSNotification+RMStoreTests.m */; };
 		8700D1D717DCB011005C8F5D /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8700D1D617DCB011005C8F5D /* libOCMock.a */; };
 		876046491812FB7500C9B78C /* RMStoreKeychainPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 876046481812FB7500C9B78C /* RMStoreKeychainPersistence.m */; };
@@ -16,10 +17,6 @@
 		8760465018131B2600C9B78C /* RMStoreKeychainPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 876046481812FB7500C9B78C /* RMStoreKeychainPersistence.m */; };
 		8760465118131B4800C9B78C /* RMStoreTransactionReceiptVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 8793E805180D512E005D7A66 /* RMStoreTransactionReceiptVerifier.m */; };
 		876631F9180EEBF40049B368 /* RMStoreTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 876631F8180EEBF40049B368 /* RMStoreTransaction.m */; };
-		8793E799180C2ABE005D7A66 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793E797180C2ABE005D7A66 /* libcrypto.a */; };
-		8793E79A180C2ABE005D7A66 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793E798180C2ABE005D7A66 /* libssl.a */; };
-		8793E79D180C2C8E005D7A66 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793E798180C2ABE005D7A66 /* libssl.a */; };
-		8793E79E180C2C90005D7A66 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793E797180C2ABE005D7A66 /* libcrypto.a */; };
 		8793E808180D512E005D7A66 /* RMAppReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8793E801180D512E005D7A66 /* RMAppReceipt.m */; };
 		8793E809180D512E005D7A66 /* RMStoreAppReceiptVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 8793E803180D512E005D7A66 /* RMStoreAppReceiptVerifier.m */; };
 		8793E80A180D512E005D7A66 /* RMStoreTransactionReceiptVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 8793E805180D512E005D7A66 /* RMStoreTransactionReceiptVerifier.m */; };
@@ -58,6 +55,8 @@
 		A0AF3DAA17A810B700D2E836 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AF3D3317A8059900D2E836 /* StoreKit.framework */; };
 		A0AF3DAE17A8303800D2E836 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0AF3DAD17A8303800D2E836 /* Default-568h@2x.png */; };
 		C90EF0F119A20C8200A9E738 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90EF0F019A20C8200A9E738 /* XCTest.framework */; };
+		D4861761DAF803FBD311B62F /* libPods-RMStoreDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 651E408E94BFEF58A71C6693 /* libPods-RMStoreDemo.a */; };
+		EEBEEC4F1E70E57C5F3F50EC /* libPods-RMStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6C837EB6069CF7545C845C /* libPods-RMStore.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +83,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2341E6AECD20F8D76CCFF95C /* Pods-RMStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMStore.release.xcconfig"; path = "Target Support Files/Pods-RMStore/Pods-RMStore.release.xcconfig"; sourceTree = "<group>"; };
+		2A0EEC1685B51B4794502145 /* Pods-RMStoreDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMStoreDemo.release.xcconfig"; path = "Target Support Files/Pods-RMStoreDemo/Pods-RMStoreDemo.release.xcconfig"; sourceTree = "<group>"; };
+		598CA1CB229B8147DB954AA7 /* Pods-RMStoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMStoreTests.release.xcconfig"; path = "Target Support Files/Pods-RMStoreTests/Pods-RMStoreTests.release.xcconfig"; sourceTree = "<group>"; };
+		651E408E94BFEF58A71C6693 /* libPods-RMStoreDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RMStoreDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		752A5CBBE49FDC2FAD1FF951 /* libPods-RMStoreTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RMStoreTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8700D1C017DCA548005C8F5D /* NSNotification+RMStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+RMStoreTests.m"; sourceTree = "<group>"; };
 		8700D1CF17DCB011005C8F5D /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
 		8700D1D017DCB011005C8F5D /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
@@ -98,8 +102,6 @@
 		8760464C18130DD400C9B78C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		876631F7180EEBF40049B368 /* RMStoreTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMStoreTransaction.h; sourceTree = "<group>"; };
 		876631F8180EEBF40049B368 /* RMStoreTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMStoreTransaction.m; sourceTree = "<group>"; };
-		8793E797180C2ABE005D7A66 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "RMStore/Optional/openssl-1.0.1e/lib/libcrypto.a"; sourceTree = "<group>"; };
-		8793E798180C2ABE005D7A66 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "RMStore/Optional/openssl-1.0.1e/lib/libssl.a"; sourceTree = "<group>"; };
 		8793E800180D512E005D7A66 /* RMAppReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAppReceipt.h; sourceTree = "<group>"; };
 		8793E801180D512E005D7A66 /* RMAppReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAppReceipt.m; sourceTree = "<group>"; };
 		8793E802180D512E005D7A66 /* RMStoreAppReceiptVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMStoreAppReceiptVerifier.h; sourceTree = "<group>"; };
@@ -143,6 +145,10 @@
 		A0AF3DA517A8095F00D2E836 /* RMPurchasesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPurchasesViewController.m; sourceTree = "<group>"; };
 		A0AF3DA617A8095F00D2E836 /* RMPurchasesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMPurchasesViewController.xib; sourceTree = "<group>"; };
 		A0AF3DAD17A8303800D2E836 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AB9DE04425894BC8AF01DFED /* Pods-RMStoreDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMStoreDemo.debug.xcconfig"; path = "Target Support Files/Pods-RMStoreDemo/Pods-RMStoreDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BB6C837EB6069CF7545C845C /* libPods-RMStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RMStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDD14245619E1B9B805EF184 /* Pods-RMStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMStore.debug.xcconfig"; path = "Target Support Files/Pods-RMStore/Pods-RMStore.debug.xcconfig"; sourceTree = "<group>"; };
+		BE3B55E31C201F61A7CC5520 /* Pods-RMStoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RMStoreTests.debug.xcconfig"; path = "Target Support Files/Pods-RMStoreTests/Pods-RMStoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C90EF0F019A20C8200A9E738 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -151,10 +157,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8793E799180C2ABE005D7A66 /* libcrypto.a in Frameworks */,
-				8793E79A180C2ABE005D7A66 /* libssl.a in Frameworks */,
 				A0AF3D3417A8059900D2E836 /* StoreKit.framework in Frameworks */,
 				A0AF3D0C17A802F300D2E836 /* Foundation.framework in Frameworks */,
+				EEBEEC4F1E70E57C5F3F50EC /* libPods-RMStore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +174,7 @@
 				A0AF3D1E17A802F300D2E836 /* Foundation.framework in Frameworks */,
 				A0AF3D2117A802F300D2E836 /* libRMStore.a in Frameworks */,
 				8700D1D717DCB011005C8F5D /* libOCMock.a in Frameworks */,
+				5C2A93E368303D1D6A58E14D /* libPods-RMStoreTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,13 +182,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8793E79D180C2C8E005D7A66 /* libssl.a in Frameworks */,
 				A0AF3DAA17A810B700D2E836 /* StoreKit.framework in Frameworks */,
-				8793E79E180C2C90005D7A66 /* libcrypto.a in Frameworks */,
 				A0AF3D7317A8085900D2E836 /* UIKit.framework in Frameworks */,
 				8760464E18130DD800C9B78C /* Security.framework in Frameworks */,
 				A0AF3D7417A8085900D2E836 /* Foundation.framework in Frameworks */,
 				A0AF3D7517A8085900D2E836 /* CoreGraphics.framework in Frameworks */,
+				D4861761DAF803FBD311B62F /* libPods-RMStoreDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +260,7 @@
 				A0AF3D7617A8085900D2E836 /* RMStoreDemo */,
 				A0AF3D0A17A802F300D2E836 /* Frameworks */,
 				A0AF3D0917A802F300D2E836 /* Products */,
+				B478D06084ABBF82B0D0C5A6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -274,12 +280,13 @@
 				C90EF0F019A20C8200A9E738 /* XCTest.framework */,
 				A0AF3D3D17A807FF00D2E836 /* CoreGraphics.framework */,
 				A0AF3D0B17A802F300D2E836 /* Foundation.framework */,
-				8793E797180C2ABE005D7A66 /* libcrypto.a */,
-				8793E798180C2ABE005D7A66 /* libssl.a */,
 				8760464C18130DD400C9B78C /* Security.framework */,
 				A0AF3D1A17A802F300D2E836 /* SenTestingKit.framework */,
 				A0AF3D3317A8059900D2E836 /* StoreKit.framework */,
 				A0AF3D1C17A802F300D2E836 /* UIKit.framework */,
+				BB6C837EB6069CF7545C845C /* libPods-RMStore.a */,
+				651E408E94BFEF58A71C6693 /* libPods-RMStoreDemo.a */,
+				752A5CBBE49FDC2FAD1FF951 /* libPods-RMStoreTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -359,6 +366,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B478D06084ABBF82B0D0C5A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BDD14245619E1B9B805EF184 /* Pods-RMStore.debug.xcconfig */,
+				2341E6AECD20F8D76CCFF95C /* Pods-RMStore.release.xcconfig */,
+				AB9DE04425894BC8AF01DFED /* Pods-RMStoreDemo.debug.xcconfig */,
+				2A0EEC1685B51B4794502145 /* Pods-RMStoreDemo.release.xcconfig */,
+				BE3B55E31C201F61A7CC5520 /* Pods-RMStoreTests.debug.xcconfig */,
+				598CA1CB229B8147DB954AA7 /* Pods-RMStoreTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -366,6 +387,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0AF3D2D17A802F300D2E836 /* Build configuration list for PBXNativeTarget "RMStore" */;
 			buildPhases = (
+				B6BC33B37CB8A65B57CA2C49 /* [CP] Check Pods Manifest.lock */,
 				A0AF3D0417A802F300D2E836 /* Sources */,
 				A0AF3D0517A802F300D2E836 /* Frameworks */,
 				A0AF3D0617A802F300D2E836 /* CopyFiles */,
@@ -383,9 +405,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0AF3D3017A802F300D2E836 /* Build configuration list for PBXNativeTarget "RMStoreTests" */;
 			buildPhases = (
+				D44D2C75AE24BA70AB66C7DC /* [CP] Check Pods Manifest.lock */,
 				A0AF3D1417A802F300D2E836 /* Sources */,
 				A0AF3D1517A802F300D2E836 /* Frameworks */,
 				A0AF3D1617A802F300D2E836 /* Resources */,
+				55163CB37F0666A971218E5D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -401,9 +425,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0AF3D9C17A8085900D2E836 /* Build configuration list for PBXNativeTarget "RMStoreDemo" */;
 			buildPhases = (
+				5E3623FAADF4A77C7F59809E /* [CP] Check Pods Manifest.lock */,
 				A0AF3D6E17A8085900D2E836 /* Sources */,
 				A0AF3D6F17A8085900D2E836 /* Frameworks */,
 				A0AF3D7017A8085900D2E836 /* Resources */,
+				C05989456CBFE98B28A0D090 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -464,6 +490,111 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		55163CB37F0666A971218E5D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RMStoreTests/Pods-RMStoreTests-resources.sh",
+				"${PODS_ROOT}/../RMStore/Optional/AppleIncRootCertificate.cer",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppleIncRootCertificate.cer",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RMStoreTests/Pods-RMStoreTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E3623FAADF4A77C7F59809E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RMStoreDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6BC33B37CB8A65B57CA2C49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RMStore-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C05989456CBFE98B28A0D090 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RMStoreDemo/Pods-RMStoreDemo-resources.sh",
+				"${PODS_ROOT}/../RMStore/Optional/AppleIncRootCertificate.cer",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppleIncRootCertificate.cer",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RMStoreDemo/Pods-RMStoreDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D44D2C75AE24BA70AB66C7DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RMStoreTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A0AF3D0417A802F300D2E836 /* Sources */ = {
@@ -568,7 +699,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -591,7 +722,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -599,6 +730,7 @@
 		};
 		A0AF3D2E17A802F300D2E836 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDD14245619E1B9B805EF184 /* Pods-RMStore.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/RMStore.dst;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -609,16 +741,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = (
+				OTHER_LDFLAGS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"${TARGET_NAME}/Optional/openssl-1.0.1e/include/**",
+					"-ObjC",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"RMStore/Optional/openssl-1.0.1e/lib",
-				);
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -626,20 +752,15 @@
 		};
 		A0AF3D2F17A802F300D2E836 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2341E6AECD20F8D76CCFF95C /* Pods-RMStore.release.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/RMStore.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
-				HEADER_SEARCH_PATHS = (
+				OTHER_LDFLAGS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"${TARGET_NAME}/Optional/openssl-1.0.1e/include/**",
+					"-ObjC",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"RMStore/Optional/openssl-1.0.1e/lib",
-				);
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -647,9 +768,11 @@
 		};
 		A0AF3D3117A802F300D2E836 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE3B55E31C201F61A7CC5520 /* Pods-RMStoreTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -658,15 +781,18 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RMStoreTests/RMStoreTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"${SRCROOT}/${TARGET_NAME}/usr/include/**",
-					"RMStore/Optional/openssl-1.0.1e/include",
 				);
 				INFOPLIST_FILE = "RMStoreTests/RMStoreTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RMStoreTests/usr/lib\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.robotmedia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -675,9 +801,11 @@
 		};
 		A0AF3D3217A802F300D2E836 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 598CA1CB229B8147DB954AA7 /* Pods-RMStoreTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -685,15 +813,18 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RMStoreTests/RMStoreTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
 					"${SRCROOT}/${TARGET_NAME}/usr/include/**",
-					"RMStore/Optional/openssl-1.0.1e/include",
 				);
 				INFOPLIST_FILE = "RMStoreTests/RMStoreTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RMStoreTests/usr/lib\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.robotmedia.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -702,6 +833,7 @@
 		};
 		A0AF3D9D17A8085900D2E836 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB9DE04425894BC8AF01DFED /* Pods-RMStoreDemo.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -710,16 +842,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RMStoreDemo/RMStoreDemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"RMStore/Optional/openssl-1.0.1e/include",
-				);
 				INFOPLIST_FILE = "RMStoreDemo/RMStoreDemo-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"RMStore/Optional/openssl-1.0.1e/lib",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.robotmedia.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -728,6 +851,7 @@
 		};
 		A0AF3D9E17A8085900D2E836 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A0EEC1685B51B4794502145 /* Pods-RMStoreDemo.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -736,16 +860,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RMStoreDemo/RMStoreDemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"RMStore/Optional/openssl-1.0.1e/include",
-				);
 				INFOPLIST_FILE = "RMStoreDemo/RMStoreDemo-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"RMStore/Optional/openssl-1.0.1e/lib",
-				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_BUNDLE_IDENTIFIER = net.robotmedia.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";

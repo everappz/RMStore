@@ -484,7 +484,6 @@
 				A0AF3D7B17A8085900D2E836 /* InfoPlist.strings in Resources */,
 				A0AF3DA317A8094600D2E836 /* RMStoreViewController.xib in Resources */,
 				A0AF3DA817A8095F00D2E836 /* RMPurchasesViewController.xib in Resources */,
-				87BA4B9F1886E367004FD693 /* AppleIncRootCertificate.cer in Resources */,
 				A0AF3DAE17A8303800D2E836 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -632,15 +631,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8760465018131B2600C9B78C /* RMStoreKeychainPersistence.m in Sources */,
 				A0AF3D7D17A8085900D2E836 /* main.m in Sources */,
 				A0AF3D8117A8085900D2E836 /* RMAppDelegate.m in Sources */,
 				A0AF3DA217A8094600D2E836 /* RMStoreViewController.m in Sources */,
-				8793E80C180D5136005D7A66 /* RMStoreAppReceiptVerifier.m in Sources */,
 				A0AF3DA717A8095F00D2E836 /* RMPurchasesViewController.m in Sources */,
-				8760465118131B4800C9B78C /* RMStoreTransactionReceiptVerifier.m in Sources */,
-				A0AF3DA917A80B2F00D2E836 /* RMStore.m in Sources */,
-				8793E80B180D5133005D7A66 /* RMAppReceipt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,8 +727,6 @@
 			baseConfigurationReference = BDD14245619E1B9B805EF184 /* Pods-RMStore.debug.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/RMStore.dst;
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (

@@ -1,4 +1,7 @@
-platform :ios, '15.0'
+
+$iOSVersion = '15.0'
+
+platform :ios, $iOSVersion
 
 source 'https://cdn.cocoapods.org/'
 
@@ -19,4 +22,20 @@ end
 
 target 'RMStoreTests' do
   shared_pods
+end
+
+
+post_install do |installer|
+
+
+  #fix xcode 14.3
+  #https://stackoverflow.com/questions/75574268/missing-file-libarclite-iphoneos-a-xcode-14-3
+  installer.generated_projects.each do |project|
+    project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $iOSVersion
+      end
+    end
+  end
+
 end

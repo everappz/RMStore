@@ -35,10 +35,10 @@
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Purchases", @"");
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Restore", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(restoreAction)];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Restore", @"") style:UIBarButtonItemStylePlain target:self action:@selector(restoreAction)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(trashAction)];
-    
+
     RMStore *store = [RMStore defaultStore];
     [store addStoreObserver:self];
     _persistence = store.transactionPersistor;
@@ -54,18 +54,23 @@
 
 - (void)restoreAction
 {
+#if !TARGET_OS_MACCATALYST
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+#endif
     [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;        
+#if !TARGET_OS_MACCATALYST
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#endif
         [self.tableView reloadData];
     } failure:^(NSError *error) {
+#if !TARGET_OS_MACCATALYST
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Restore Transactions Failed", @"")
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"")
-                                                  otherButtonTitles:nil];
-        [alertView show];
+#endif
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Restore Transactions Failed", @"")
+                                                                      message:error.localizedDescription
+                                                               preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
     }];
 }
 
